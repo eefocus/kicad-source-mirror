@@ -434,7 +434,20 @@ void KICAD_MANAGER_FRAME::OnRunPageLayoutEditor( wxCommandEvent& event )
     Execute( this, PL_EDITOR_EXE );
 }
 
-
+/*
+ * Goto Moore8 site
+ */
+void KICAD_MANAGER_FRAME::OnGotoMoore8( wxCommandEvent& event)
+{
+    if( !wxLaunchDefaultBrowser( URL_MOORE8 ) )
+    {
+        wxString msg;
+        msg.Printf( _( "Could not launch the default browser.\n"
+                       "For information on how to help the KiCad project, visit %s" ),
+                URL_MOORE8 );
+        wxMessageBox( msg, _( "Goto Moore8 site" ), wxOK, this );
+    }
+}
 
 void KICAD_MANAGER_FRAME::OnRunGerbview( wxCommandEvent& event )
 {

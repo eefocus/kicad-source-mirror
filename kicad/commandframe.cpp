@@ -108,6 +108,15 @@ void LAUNCHER_PANEL::CreateCommandToolbar()
                _( "Page Layout Editor\n"
                   "Edit worksheet graphics and text" ) );
 
+    // Add buttons for EEFOCUS
+    separator = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
+    m_buttonSizer->Add( separator, 0, wxEXPAND | wxALL, 8 );
+
+    AddButton( ID_TO_GOTO_MOORE8,
+               KiBitmap( icon_pcbcalculator_xpm ),
+               _( "Moore8\n"
+                  "Provide online education for engineers" ) );
+
     // Add a stretchy spacer to make button bar fill the entire screen
     m_buttonSizer->AddStretchSpacer();
 

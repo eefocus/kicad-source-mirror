@@ -114,6 +114,7 @@ enum id_kicad_frm {
     ID_TO_BITMAP_CONVERTER,
     ID_TO_PCB_CALCULATOR,
     ID_TO_PL_EDITOR,
+    ID_TO_GOTO_MOORE8,                      // GOTO EEFOCUS website: www.moore8.com
 
     ID_TO_TEXT_EDITOR,
     ID_BROWSE_AN_SELECT_FILE,

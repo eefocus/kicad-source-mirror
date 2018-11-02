@@ -105,6 +105,10 @@ BEGIN_EVENT_TABLE( KICAD_MANAGER_FRAME, EDA_BASE_FRAME )
     EVT_BUTTON( ID_TO_PL_EDITOR, KICAD_MANAGER_FRAME::OnRunPageLayoutEditor )
     EVT_MENU( ID_TO_PL_EDITOR, KICAD_MANAGER_FRAME::OnRunPageLayoutEditor )
 
+    // Bind events for EEFOCUS buttons and menus
+    EVT_BUTTON( ID_TO_GOTO_MOORE8, KICAD_MANAGER_FRAME::OnGotoMoore8 )
+    EVT_MENU( ID_TO_GOTO_MOORE8, KICAD_MANAGER_FRAME::OnGotoMoore8 )
+
     EVT_UPDATE_UI_RANGE( ID_TO_SCH, ID_TO_PCB_FP_EDITOR,
                          KICAD_MANAGER_FRAME::OnUpdateRequiresProject )
 
@@ -121,6 +125,7 @@ enum hotkey_id_commnand
     HK_RUN_GERBVIEW,
     HK_RUN_BM2COMPONENT,
     HK_RUN_PCBCALCULATOR,
+    HK_GOTO_MOORE8,                  // Declare hotkey ids for EEFOCUS
     HK_RUN_PLEDITOR
 };
 
@@ -145,6 +150,9 @@ static EDA_HOTKEY HkRunBm2Cmp( _HKI( "Run Bitmap2Component" ),
 static EDA_HOTKEY HkRunPcbCalc( _HKI( "Run PcbCalculator" ),
                                 HK_RUN_PCBCALCULATOR, 'A' + GR_KB_CTRL, 0 );
 static EDA_HOTKEY HkRunPleditor( _HKI( "Run PlEditor" ), HK_RUN_PLEDITOR, 'Y' + GR_KB_CTRL, 0 );
+// Define hotkeys for EEFOCUS
+static EDA_HOTKEY HkGotoMoore8( _HKI( "Goto Moore8 Site" ),
+                                HK_GOTO_MOORE8, 'M' + GR_KB_CTRL, 0 );
 
 // Common: hotkeys_basic.h
 static EDA_HOTKEY HkNewProject( _HKI( "New Project" ), HK_NEW, GR_KB_CTRL + 'N' );
@@ -397,6 +405,12 @@ void KICAD_MANAGER_FRAME::ReCreateMenuBar()
     AddMenuItem( toolsMenu, ID_TO_PL_EDITOR, msg,
                  _( "Edit worksheet graphics and text" ),
                  KiBitmap( pagelayout_load_xpm ) );
+
+    // Add menus for EEFOCUS
+    msg = AddHotkeyName( _( "Online education" ), kicad_Manager_Hokeys_Descr, HK_GOTO_MOORE8 );
+    AddMenuItem( toolsMenu, ID_TO_GOTO_MOORE8, msg,
+                 _( "Provide online education for engineers" ),
+                 KiBitmap( calculator_xpm ) );
 
     // Menu Help:
     wxMenu* helpMenu = new wxMenu;
