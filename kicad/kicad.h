@@ -174,6 +174,9 @@ public:
     void OnRunPcbCalculator( wxCommandEvent& event );
     void OnRunPageLayoutEditor( wxCommandEvent& event );
 
+    // EEFOCUS declaration
+    void OnGotoMoore8( wxCommandEvent& event );
+
     void OnConfigurePaths( wxCommandEvent& aEvent );
     void OnEditSymLibTable( wxCommandEvent& aEvent );
     void OnEditFpLibTable( wxCommandEvent& aEvent );
