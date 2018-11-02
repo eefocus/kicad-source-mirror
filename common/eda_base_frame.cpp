@@ -49,9 +49,6 @@
 
 #define URL_GET_INVOLVED "http://kicad-pcb.org/contribute/"
 
-// Define EEFOCUS urls
-#define URL_MOORE8 "http://www.moore8.com/"
-
 ///@{
 /// \ingroup config
 

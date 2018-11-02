@@ -45,6 +45,8 @@
 
 #include "kicad.h"
 
+// Define EEFOCUS urls
+#define URL_MOORE8 "http://www.moore8.com/"
 
 #define TREE_FRAME_WIDTH_ENTRY     wxT( "LeftWinWidth" )
 
