@@ -113,7 +113,7 @@ void LAUNCHER_PANEL::CreateCommandToolbar()
     m_buttonSizer->Add( separator, 0, wxEXPAND | wxALL, 8 );
 
     AddButton( ID_TO_GOTO_MOORE8,
-               KiBitmap( icon_pcbcalculator_xpm ),
+               KiBitmap( icon_moore8_xpm ),
                _( "Moore8\n"
                   "Provide online education for engineers" ) );
 
