@@ -608,6 +608,8 @@ set( BMAPS_BIG
     viewlibs_icon
     icon_pagelayout_editor
     wizard_add_fplib_icon
+    # EEFOCUS toolbar icons
+    icon_moore8
     )
 
 set( BMAPS_OTHER

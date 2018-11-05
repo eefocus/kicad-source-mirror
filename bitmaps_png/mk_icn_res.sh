@@ -3,7 +3,7 @@
 # make icons using Inkscape
 
 # create output directories
-rm -r ../resources/linux/mime/icons/hicolor/*
+# rm -r ../resources/linux/mime/icons/hicolor/*
 mkdir -p ../resources/linux/mime/icons/hicolor/scalable
 cd ../resources/linux/mime/icons/hicolor
 echo -e '\E[0;34m'"Directory \"scalable\" for .svg icons was created."
@@ -16,7 +16,10 @@ cp icon_eeschema.svg ../../resources/linux/mime/icons/hicolor/scalable/eeschema.
 echo -e '\E[0;34m'"Sources of icons was copied."
 
 # convert .svg files into .png files
-cd ../../resources/linux/mime/icons/hicolor/scalable
+cd ../../resources/linux/mime/icons/hicolor
+HICOLOR_PATH=$(pwd)
+cd scalable
+SCALABLE_PATH=$(pwd)
 
 SIZES="16x16
        22x22
@@ -34,9 +37,9 @@ do
     echo -e '\E[0;34m'"Subdirectory \"mimetypes\" was created."
     tput sgr0
 
-    inkscape -f kicad.svg -e ../$size/mimetypes/application-x-kicad-project.png -w $sz -h $sz --export-area-snap
-    inkscape -f eeschema.svg -e ../$size/mimetypes/application-x-kicad-eeschema.png -w $sz -h $sz --export-area-snap
-    inkscape -f pcbnew.svg -e ../$size/mimetypes/application-x-kicad-pcbnew.png -w $sz -h $sz --export-area-snap
+    inkscape -f $SCALABLE_PATH/kicad.svg -e $HICOLOR_PATH/$size/mimetypes/application-x-kicad-project.png -w $sz -h $sz --export-area-snap
+    inkscape -f $SCALABLE_PATH/eeschema.svg -e $HICOLOR_PATH/$size/mimetypes/application-x-kicad-eeschema.png -w $sz -h $sz --export-area-snap
+    inkscape -f $SCALABLE_PATH/pcbnew.svg -e $HICOLOR_PATH/$size/mimetypes/application-x-kicad-pcbnew.png -w $sz -h $sz --export-area-snap
     echo -e '\E[0;34m'"Icons with size $size was created."
 
     if [ $sz -eq 48 ]
@@ -46,9 +49,9 @@ do
         echo -e '\E[0;34m'"Subdirectory \"apps\" was created."
         tput sgr0
 
-        inkscape -f kicad.svg -e ../$size/apps/kicad.png -w $sz -h $sz --export-area-snap
-        inkscape -f eeschema.svg -e ../$size/apps/eeschema.png -w $sz -h $sz --export-area-snap
-        inkscape -f pcbnew.svg -e ../$size/apps/pcbnew.png -w $sz -h $sz --export-area-snap
+        inkscape -f $SCALABLE_PATH/kicad.svg -e $HICOLOR_PATH/$size/apps/kicad.png -w $sz -h $sz --export-area-snap
+        inkscape -f $SCALABLE_PATH/eeschema.svg -e $HICOLOR_PATH/$size/apps/eeschema.png -w $sz -h $sz --export-area-snap
+        inkscape -f $SCALABLE_PATH/pcbnew.svg -e $HICOLOR_PATH/$size/apps/pcbnew.png -w $sz -h $sz --export-area-snap
         echo -e '\E[0;34m'"Icons with size $size was created."
         tput sgr0
     fi
