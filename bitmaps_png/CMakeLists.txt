@@ -734,7 +734,8 @@ if( MAINTAIN_PNGS )
             message( FATAL_ERROR "Could not find the Inkscape vector drawing program." )
         else( NOT Inkscape_EXECUTABLE )
             set( Inkscape_FOUND TRUE )
-            set( Inkscape_EXECUTABLE ${Inkscape_EXECUTABLE}
+            # set( Inkscape_EXECUTABLE ${Inkscape_EXECUTABLE}
+            set( Inkscape_EXECUTABLE "/usr/local/bin/inkscape" )
                  CACHE FILEPATH "Path and file name of the Inkscape program." )
             message( STATUS "The Inkscape vector drawing program found." )
         endif( NOT Inkscape_EXECUTABLE )
