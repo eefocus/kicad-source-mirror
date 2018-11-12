@@ -74,3 +74,4 @@ demos/**/_autosave-*
 *.gch
 *.orig
 *.patch
+.vscode
