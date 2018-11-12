@@ -428,8 +428,7 @@ void LIB_EDIT_FRAME::OnUpdateElectricalType( wxUpdateUIEvent& aEvent )
 
 void LIB_EDIT_FRAME::OnUpdateSearchTreeTool( wxUpdateUIEvent& aEvent )
 {
-    if( aEvent.GetEventObject() == m_optionsToolBar )
-        aEvent.Check( IsSearchTreeShown() );
+    aEvent.Check( IsSearchTreeShown() );
 }
 
 
@@ -1502,8 +1501,12 @@ bool LIB_EDIT_FRAME::addLibraryFile( bool aCreateNew )
 {
     wxFileName fn = m_libMgr->GetUniqueLibraryName();
 
-    if( !LibraryFileBrowser( !aCreateNew, fn, SchematicLibraryFileWildcard(), SchematicLibraryFileExtension) )
+    if( !LibraryFileBrowser( !aCreateNew, fn,
+                             SchematicLibraryFileWildcard(), SchematicLibraryFileExtension,
+                             false ) )
+    {
         return false;
+    }
 
     wxString libName = fn.GetName();
 

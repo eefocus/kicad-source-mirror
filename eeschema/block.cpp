@@ -138,7 +138,7 @@ void SCH_EDIT_FRAME::HandleBlockPlace( wxDC* DC )
 
         for( unsigned ii = 0; ii < block->GetItems().GetCount(); ii++ )
         {
-            SCH_ITEM* item = dynamic_cast<SCH_ITEM*>( block->GetItems().GetPickedItem( ii ) );
+            SCH_ITEM* item = static_cast<SCH_ITEM*>( block->GetItems().GetPickedItem( ii ) );
             item->Move( block->GetMoveVector() );
             item->SetFlags( IS_MOVED );
             GetCanvas()->GetView()->Update( item, KIGFX::GEOMETRY );
@@ -254,19 +254,22 @@ bool SCH_EDIT_FRAME::HandleBlockEnd( wxDC* aDC )
                 nextcmd = true;
                 block->SetState( STATE_BLOCK_MOVE );
 
-                // Mark dangling pins at the edges of the block:
-                std::vector<DANGLING_END_ITEM> internalPoints;
-
-                for( unsigned i = 0; i < block->GetCount(); ++i )
+                if( block->GetCommand() != BLOCK_DRAG && block->GetCommand() != BLOCK_DRAG_ITEM )
                 {
-                    auto item = static_cast<SCH_ITEM*>( block->GetItem( i ) );
-                    item->GetEndPoints( internalPoints );
-                }
+                    // Mark dangling pins at the edges of the block:
+                    std::vector<DANGLING_END_ITEM> internalPoints;
 
-                for( unsigned i = 0; i < block->GetCount(); ++i )
-                {
-                    auto item = static_cast<SCH_ITEM*>( block->GetItem( i ) );
-                    item->UpdateDanglingState( internalPoints );
+                    for( unsigned i = 0; i < block->GetCount(); ++i )
+                    {
+                        auto item = static_cast<SCH_ITEM*>( block->GetItem( i ) );
+                        item->GetEndPoints( internalPoints );
+                    }
+
+                    for( unsigned i = 0; i < block->GetCount(); ++i )
+                    {
+                        auto item = static_cast<SCH_ITEM*>( block->GetItem( i ) );
+                        item->UpdateDanglingState( internalPoints );
+                    }
                 }
 
                 m_canvas->SetMouseCaptureCallback( DrawMovingBlockOutlines );
@@ -394,6 +397,7 @@ void SCH_EDIT_FRAME::copyBlockItems( PICKED_ITEMS_LIST& aItemsList, const wxPoin
 
     wxPoint center( ( bounds.GetLeft() + bounds.GetRight() ) / 2,
                     ( bounds.GetTop() + bounds.GetBottom() ) / 2 );
+    center = GetNearestGridPosition( center );
 
     for( unsigned ii = 0; ii < aItemsList.GetCount(); ii++ )
     {

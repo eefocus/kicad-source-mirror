@@ -376,6 +376,7 @@ int DRAWING_TOOL::PlaceText( const TOOL_EVENT& aEvent )
         {
             if( !text )
             {
+                m_controls->ForceCursorPosition( true, m_controls->GetCursorPosition() );
                 PCB_LAYER_ID layer = m_frame->GetActiveLayer();
 
                 // Init the new item attributes
@@ -432,6 +433,8 @@ int DRAWING_TOOL::PlaceText( const TOOL_EVENT& aEvent )
                 if( text == NULL )
                     continue;
 
+                m_controls->WarpCursor( text->GetPosition(), true );
+                m_controls->ForceCursorPosition( false );
                 m_controls->CaptureCursor( true );
                 m_controls->SetAutoPan( true );
 
@@ -522,6 +525,7 @@ int DRAWING_TOOL::DrawDimension( const TOOL_EVENT& aEvent )
         grid.SetUseGrid( !evt->Modifier( MD_ALT ) );
         m_controls->SetSnapping( !evt->Modifier( MD_ALT ) );
         VECTOR2I cursorPos = grid.BestSnapAnchor( m_controls->GetMousePosition(), nullptr );
+        m_controls->ForceCursorPosition(true, cursorPos );
 
         if( TOOL_EVT_UTILS::IsCancelInteractive( *evt ) )
         {
@@ -1003,6 +1007,7 @@ bool DRAWING_TOOL::drawSegment( int aShape, DRAWSEGMENT*& aGraphic,
         aGraphic->SetStart( wxPoint( aStartingPoint->x, aStartingPoint->y ) );
 
         cursorPos = grid.BestSnapAnchor( cursorPos, aGraphic );
+        m_controls->ForceCursorPosition(true, cursorPos );
         aGraphic->SetEnd( wxPoint( cursorPos.x, cursorPos.y ) );
 
         if( aShape == S_SEGMENT )
@@ -1025,6 +1030,7 @@ bool DRAWING_TOOL::drawSegment( int aShape, DRAWSEGMENT*& aGraphic,
         grid.SetUseGrid( !evt->Modifier( MD_ALT ) );
         m_controls->SetSnapping( !evt->Modifier( MD_ALT ) );
         cursorPos = grid.BestSnapAnchor( m_controls->GetMousePosition(), getDrawingLayer() );
+        m_controls->ForceCursorPosition(true, cursorPos );
 
         // 45 degree angle constraint enabled with an option and toggled with Ctrl
         const bool limit45 = ( frame()->Settings().m_use45DegreeGraphicSegments != !!( evt->Modifier( MD_CTRL ) ) );
@@ -1229,6 +1235,7 @@ bool DRAWING_TOOL::drawArc( DRAWSEGMENT*& aGraphic )
         grid.SetUseGrid( !evt->Modifier( MD_ALT ) );
         m_controls->SetSnapping( !evt->Modifier( MD_ALT ) );
         VECTOR2I cursorPos = grid.BestSnapAnchor( m_controls->GetMousePosition(), aGraphic );
+        m_controls->ForceCursorPosition(true, cursorPos );
 
         if( evt->IsClick( BUT_LEFT ) )
         {
@@ -1412,6 +1419,7 @@ int DRAWING_TOOL::drawZone( bool aKeepout, ZONE_MODE aMode )
         grid.SetUseGrid( !evt->Modifier( MD_ALT ) );
         m_controls->SetSnapping( !evt->Modifier( MD_ALT ) );
         VECTOR2I cursorPos = grid.BestSnapAnchor( m_controls->GetMousePosition(), layers );
+        m_controls->ForceCursorPosition(true, cursorPos );
 
         if( TOOL_EVT_UTILS::IsCancelInteractive( *evt ) )
         {

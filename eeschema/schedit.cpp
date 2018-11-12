@@ -413,6 +413,8 @@ void SCH_EDIT_FRAME::OnMoveItem( wxCommandEvent& aEvent )
             return;
     }
 
+    GetCanvas()->GetViewControls()->WarpCursor( GetCrossHairPosition(), true );
+
     switch( item->Type() )
     {
     case SCH_LINE_T:
@@ -769,6 +771,9 @@ void SCH_EDIT_FRAME::PrepareMoveItem( SCH_ITEM* aItem )
         else
             SetUndoItem( aItem );
     }
+
+    std::vector<DANGLING_END_ITEM> emptySet;
+    aItem->UpdateDanglingState( emptySet );
 
     aItem->SetFlags( IS_MOVED );
 

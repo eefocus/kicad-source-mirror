@@ -146,11 +146,16 @@ public:
     virtual     bool IgnorePadsOnFront() const = 0;
 
     /**
+     * @return bool - ture if should ignore through-hole PADSs.
+     */
+    virtual     bool IgnoreThroughHolePads() const = 0;
+
+    /**
      * @return bool - true if should ignore PADSs on Front side and Back side.
      */
     virtual     bool IgnorePads() const
     {
-        return IgnorePadsOnFront() && IgnorePadsOnBack();
+        return IgnorePadsOnFront() && IgnorePadsOnBack() && IgnoreThroughHolePads();
     }
 
     /**
@@ -182,6 +187,11 @@ public:
      * @return true if should ignore tracks
      */
     virtual     bool IgnoreTracks() const = 0;
+
+    /**
+     * @return true if should ignore the interiors of zones
+     */
+    virtual     bool IgnoreZoneFills() const = 0;
 
     /**
      * @return bool - true if Inspect() should use BOARD_ITEM::HitTest()
@@ -398,12 +408,14 @@ private:
     bool    m_IgnoreModulesOnFront;
     bool    m_IgnorePadsOnFront;
     bool    m_IgnorePadsOnBack;
+    bool    m_IgnoreThroughHolePads;
     bool    m_IgnoreModulesVals;
     bool    m_IgnoreModulesRefs;
     bool    m_IgnoreThroughVias;
     bool    m_IgnoreBlindBuriedVias;
     bool    m_IgnoreMicroVias;
     bool    m_IgnoreTracks;
+    bool    m_IgnoreZoneFills;
 
 public:
 
@@ -438,6 +450,7 @@ public:
 
         m_IgnorePadsOnFront         = false;
         m_IgnorePadsOnBack          = false;
+        m_IgnoreThroughHolePads     = false;
 
         m_IgnoreModulesVals         = false;
         m_IgnoreModulesRefs         = false;
@@ -446,6 +459,7 @@ public:
         m_IgnoreBlindBuriedVias     = false;
         m_IgnoreMicroVias           = false;
         m_IgnoreTracks              = false;
+        m_IgnoreZoneFills           = true;
     }
 
     /**
@@ -557,6 +571,12 @@ public:
     void SetIgnorePadsOnFront(bool ignore) { m_IgnorePadsOnFront = ignore; }
 
     /**
+     * @return bool - true if should ignore through-hole PADSs.
+     */
+    bool IgnoreThroughHolePads() const override { return m_IgnoreThroughHolePads; }
+    void SetIgnoreThroughHolePads(bool ignore) { m_IgnoreThroughHolePads = ignore; }
+
+    /**
      * @return bool - true if should ignore modules values.
      */
     bool IgnoreModulesVals() const override { return m_IgnoreModulesVals; }
@@ -579,6 +599,9 @@ public:
 
     bool IgnoreTracks() const override { return m_IgnoreTracks; }
     void SetIgnoreTracks( bool ignore ) { m_IgnoreTracks = ignore; }
+
+    bool IgnoreZoneFills() const override { return m_IgnoreZoneFills; }
+    void SetIgnoreZoneFills( bool ignore ) { m_IgnoreZoneFills = ignore; }
 };
 
 
