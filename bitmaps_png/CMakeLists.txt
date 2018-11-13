@@ -628,7 +628,7 @@ set( CREATE_LOG_FILES false )
 
 
 function( svg2png inputFile outFile pngWidth pngHeight )
-    #message( "svg2png( inputFile: ${inputFile} outFile: ${outFile} pngWidth: ${pngWidth} pngHeight: ${pngHeight})")
+    message( "svg2png( inputFile: ${inputFile} outFile: ${outFile} pngWidth: ${pngWidth} pngHeight: ${pngHeight})")
 
     if( CREATE_LOG_FILES )
         set( logfile "${TMP_DIR}/${bmn}.inkscape.log" )
