@@ -226,6 +226,7 @@ EXTERN_BITMAP( icon_bitmap2component_xpm )
 EXTERN_BITMAP( icon_libedit_xpm )
 EXTERN_BITMAP( icon_pcbcalculator_xpm )
 EXTERN_BITMAP( icon_pagelayout_editor_xpm )
+EXTERN_BITMAP( icon_moore8_xpm ) // Define moore8 icon
 EXTERN_BITMAP( image_xpm )
 EXTERN_BITMAP( import_brd_file_xpm )
 EXTERN_BITMAP( import_document_xpm )
